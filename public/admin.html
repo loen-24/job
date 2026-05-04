@@ -1,0 +1,135 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel | Airindiana CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-badge">AI</div>
+        <div>
+          <h2>Airindiana Admin Panel</h2>
+          <small id="adminIdentity"></small>
+        </div>
+      </div>
+      <div class="actions">
+        <a href="/track.html" class="btn btn-secondary">Applicant Track Page</a>
+        <button id="logoutBtn" class="btn btn-danger">Logout</button>
+      </div>
+    </header>
+
+    <section class="grid-3" style="margin-top: 22px;" id="statsGrid">
+      <div class="card stats-card">
+        <h4>Total Applicants</h4>
+        <h2 id="totalApplicants">0</h2>
+      </div>
+      <div class="card stats-card">
+        <h4>Total Employees</h4>
+        <h2 id="totalEmployees">0</h2>
+      </div>
+      <div class="card stats-card">
+        <h4>Today's Entries</h4>
+        <h2 id="todaysEntries">0</h2>
+      </div>
+    </section>
+
+    <section class="grid-2">
+      <div class="card">
+        <h3>Add Employee</h3>
+        <form id="addEmployeeForm">
+          <div class="form-grid">
+            <div>
+              <label for="empName">Employee Name</label>
+              <input id="empName" required />
+            </div>
+            <div>
+              <label for="empId">Employee Login ID</label>
+              <input id="empId" required />
+            </div>
+            <div class="full">
+              <label for="empPassword">Temporary Password</label>
+              <input id="empPassword" type="password" required />
+            </div>
+          </div>
+          <button class="btn btn-primary" type="submit" style="margin-top: 10px;">Create Employee</button>
+        </form>
+        <div id="employeeMessage"></div>
+      </div>
+
+      <div class="card">
+        <h3>Recent Applications</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Ref</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="recentBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top: 20px;">
+      <h3>Manage Employees</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Login ID</th>
+              <th>Status</th>
+              <th>Created</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="employeesBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top: 20px;">
+      <div class="inline" style="justify-content: space-between; margin-bottom: 12px;">
+        <h3 style="margin: 0;">All Applicant Entries</h3>
+        <form id="searchForm" class="inline">
+          <input id="searchInput" placeholder="Search name, phone, email, token, position, employee" />
+          <button class="btn btn-secondary" type="submit">Search</button>
+          <button class="btn btn-warning" id="clearSearchBtn" type="button">Clear</button>
+        </form>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Ref</th>
+              <th>Applicant</th>
+              <th>Contact</th>
+              <th>Position</th>
+              <th>Employee</th>
+              <th>Status</th>
+              <th>Photo</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="applicantsBody"></tbody>
+        </table>
+      </div>
+      <div id="applicantMessage"></div>
+    </section>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

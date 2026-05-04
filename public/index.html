@@ -1,0 +1,62 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Airindiana CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-badge">AI</div>
+        <div>
+          <h1>Airindiana</h1>
+          <small>Airport Ground Staff Application CRM</small>
+        </div>
+      </div>
+      <div class="actions">
+        <a href="/login.html" class="btn btn-primary">Admin / Employee Login</a>
+        <a href="/track.html" class="btn btn-secondary">Track Application</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="card">
+        <h2 class="hero-title">Secure CRM for Airport Ground Staff Applications</h2>
+        <p>
+          Admin controls all operations, employees submit applicant profiles, and applicants can track status by unique reference number.
+          Built for speed, stability, and clear role separation.
+        </p>
+        <div class="actions">
+          <a class="btn btn-primary" href="/login.html">Open Staff Portal</a>
+          <a class="btn btn-secondary" href="/track.html">Applicant Lookup</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Quick Applicant Lookup</h3>
+        <form id="quickTrackForm">
+          <label for="referenceNo">Reference Number</label>
+          <input id="referenceNo" name="referenceNo" placeholder="AIR-2026-000001" required />
+          <button class="btn btn-primary" style="margin-top: 10px;" type="submit">View Details</button>
+        </form>
+        <p class="footer-note">No login required for applicant tracking.</p>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    document.getElementById("quickTrackForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const referenceNo = document.getElementById("referenceNo").value.trim();
+      if (!referenceNo) return;
+      window.location.href = `/track.html?ref=${encodeURIComponent(referenceNo.toUpperCase())}`;
+    });
+  </script>
+</body>
+</html>

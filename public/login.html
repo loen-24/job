@@ -1,0 +1,48 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Airindiana CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <div class="container" style="max-width: 560px;">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-badge">AI</div>
+        <div>
+          <h2>Airindiana Login</h2>
+          <small>Admin and Employee Access</small>
+        </div>
+      </div>
+      <a href="/" class="btn btn-secondary">Home</a>
+    </header>
+
+    <section class="card" style="margin-top: 20px;">
+      <h3>Sign In</h3>
+      <form id="loginForm">
+        <div class="form-grid">
+          <div class="full">
+            <label for="employeeId">Login ID</label>
+            <input id="employeeId" name="employeeId" required />
+          </div>
+          <div class="full">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" required />
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-top: 12px;">Login</button>
+      </form>
+      <div id="message"></div>
+      <p class="footer-note">Admin can create employee credentials from Admin Panel.</p>
+    </section>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/login.js"></script>
+</body>
+</html>

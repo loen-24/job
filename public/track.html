@@ -1,0 +1,59 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Track Application | Airindiana CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <div class="container" style="max-width: 920px;">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-badge">AI</div>
+        <div>
+          <h2>Airindiana Applicant Tracking</h2>
+          <small>Enter your reference number to view application details</small>
+        </div>
+      </div>
+      <a href="/" class="btn btn-secondary">Home</a>
+    </header>
+
+    <section class="card" style="margin-top: 20px;">
+      <form id="trackForm" class="inline" style="align-items: flex-end; gap: 12px; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 240px;">
+          <label for="referenceNo">Reference Number</label>
+          <input id="referenceNo" placeholder="AIR-2026-000001" required />
+        </div>
+        <button class="btn btn-primary" type="submit">Check Status</button>
+      </form>
+      <div id="trackMessage"></div>
+    </section>
+
+    <section class="card" style="margin-top: 20px; display: none;" id="resultCard">
+      <h3>Application Details</h3>
+      <div class="grid-2" style="margin-top: 10px;">
+        <div>
+          <p><strong>Name:</strong> <span id="rName"></span></p>
+          <p><strong>Email:</strong> <span id="rEmail"></span></p>
+          <p><strong>Mobile:</strong> <span id="rMobile"></span></p>
+          <p><strong>Gender:</strong> <span id="rGender"></span></p>
+          <p><strong>DOB:</strong> <span id="rDob"></span></p>
+        </div>
+        <div>
+          <p><strong>Job Position:</strong> <span id="rPosition"></span></p>
+          <p><strong>Address:</strong> <span id="rAddress"></span></p>
+          <p><strong>Reference Number:</strong> <span id="rRef"></span></p>
+          <p><strong>Status:</strong> <span id="rStatus"></span></p>
+          <p><strong>Photo:</strong><br /><img id="rPhoto" class="photo" alt="Applicant Photo" /></p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="/js/track.js"></script>
+</body>
+</html>
