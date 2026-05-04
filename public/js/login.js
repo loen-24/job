@@ -1,9 +1,9 @@
 ﻿const existingUser = getUser();
 if (existingUser?.role === "admin") {
-  window.location.href = "/admin.html";
+  window.location.href = "./admin.html";
 }
 if (existingUser?.role === "employee") {
-  window.location.href = "/employee.html";
+  window.location.href = "./employee.html";
 }
 
 document.getElementById("loginForm").addEventListener("submit", async (event) => {
@@ -24,9 +24,9 @@ document.getElementById("loginForm").addEventListener("submit", async (event) =>
     setSession({ token: response.token, user: response.user });
 
     if (response.user.role === "admin") {
-      window.location.href = "/admin.html";
+      window.location.href = "./admin.html";
     } else {
-      window.location.href = "/employee.html";
+      window.location.href = "./employee.html";
     }
   } catch (error) {
     showMessage("message", error.message || "Login failed", "error");

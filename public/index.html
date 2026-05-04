@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="./css/styles.css" />
 </head>
 <body>
   <div class="container">
@@ -20,8 +20,8 @@
         </div>
       </div>
       <div class="actions">
-        <a href="/login.html" class="btn btn-primary">Admin / Employee Login</a>
-        <a href="/track.html" class="btn btn-secondary">Track Application</a>
+        <a href="./login.html" class="btn btn-primary">Admin / Employee Login</a>
+        <a href="./track.html" class="btn btn-secondary">Track Application</a>
       </div>
     </header>
 
@@ -33,8 +33,8 @@
           Built for speed, stability, and clear role separation.
         </p>
         <div class="actions">
-          <a class="btn btn-primary" href="/login.html">Open Staff Portal</a>
-          <a class="btn btn-secondary" href="/track.html">Applicant Lookup</a>
+          <a class="btn btn-primary" href="./login.html">Open Staff Portal</a>
+          <a class="btn btn-secondary" href="./track.html">Applicant Lookup</a>
         </div>
       </div>
 
@@ -55,7 +55,7 @@
       event.preventDefault();
       const referenceNo = document.getElementById("referenceNo").value.trim();
       if (!referenceNo) return;
-      window.location.href = `/track.html?ref=${encodeURIComponent(referenceNo.toUpperCase())}`;
+      window.location.href = `./track.html?ref=${encodeURIComponent(referenceNo.toUpperCase())}`;
     });
   </script>
 </body>

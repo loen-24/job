@@ -1,7 +1,7 @@
 ﻿const user = getUser();
 if (!user || user.role !== "employee") {
   clearSession();
-  window.location.href = "/login.html";
+  window.location.href = "./login.html";
 }
 
 document.getElementById("employeeIdentity").textContent = `${user.name} (${user.employeeId})`;
@@ -35,7 +35,7 @@ async function loadMyApplicants() {
             <td>${escapeHtml(row.mobile)}<br /><span class="muted">${escapeHtml(row.email)}</span></td>
             <td>${escapeHtml(row.jobPosition)}</td>
             <td><span class="badge ${statusClass(row.status)}">${escapeHtml(row.status)}</span></td>
-            <td>${row.photoPath ? `<img class="photo" src="${escapeHtml(row.photoPath)}" alt="photo">` : "-"}</td>
+            <td>${row.photoPath ? `<img class="photo" src="${escapeHtml(resolveAssetUrl(row.photoPath))}" alt="photo">` : "-"}</td>
             <td>${formatDate(row.createdAt)}</td>
           </tr>`
         )
@@ -82,7 +82,7 @@ document.getElementById("copyRefBtn").addEventListener("click", async () => {
 
 document.getElementById("logoutBtn").addEventListener("click", () => {
   clearSession();
-  window.location.href = "/login.html";
+  window.location.href = "./login.html";
 });
 
 (async () => {
@@ -91,7 +91,7 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
   } catch (error) {
     if (error.status === 401 || error.status === 403) {
       clearSession();
-      window.location.href = "/login.html";
+      window.location.href = "./login.html";
       return;
     }
     showMessage("formMessage", error.message || "Failed to load applicants", "error");

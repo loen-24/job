@@ -14,13 +14,42 @@ const publicRoutes = require("./src/routes/public");
 const { authenticate, requireRole } = require("./src/middleware/auth");
 
 const app = express();
+const allowedOrigins = new Set([
+  "http://localhost:4000",
+  "http://127.0.0.1:4000",
+  "http://localhost:5500",
+  "http://127.0.0.1:5500",
+]);
 
 app.use(
   helmet({
     crossOriginResourcePolicy: false,
   })
 );
-app.use(cors());
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin) {
+        callback(null, true);
+        return;
+      }
+      if (
+        origin === "https://loen-24.github.io" ||
+        origin.startsWith("https://loen-24.github.io/")
+      ) {
+        callback(null, true);
+        return;
+      }
+      if (allowedOrigins.has(origin)) {
+        callback(null, true);
+        return;
+      }
+      callback(new Error("CORS origin not allowed"));
+    },
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

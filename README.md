@@ -58,6 +58,15 @@ npm start
 
 - `http://localhost:4000`
 
+## Split Deployment
+
+- Frontend (GitHub Pages): static files in `public/`
+- GitHub Pages deploy workflow: [`.github/workflows/pages.yml`](./.github/workflows/pages.yml)
+- Backend (Render): Node/Express API + uploads
+- Configure frontend backend URL in [public/js/api.js](./public/js/api.js):
+  - `const API_BASE_URL = "https://YOUR-RENDER-BACKEND.onrender.com";`
+- Full deployment guide: [DEPLOYMENT.md](./DEPLOYMENT.md)
+
 ## Default Admin (from `.env.example`)
 
 - Login ID: `admin`

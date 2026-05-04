@@ -1,7 +1,7 @@
 ﻿const user = getUser();
 if (!user || user.role !== "admin") {
   clearSession();
-  window.location.href = "/login.html";
+  window.location.href = "./login.html";
 }
 
 document.getElementById("adminIdentity").textContent = `${user.name} (${user.employeeId})`;
@@ -100,7 +100,7 @@ async function loadApplicants(search = "") {
                 <select id="status-${row.id}">${statusSelect}</select>
                 <button class="btn btn-secondary" style="margin-top: 6px;" onclick="updateStatus(${row.id})">Save</button>
               </td>
-              <td>${row.photoPath ? `<img class="photo" src="${escapeHtml(row.photoPath)}" alt="photo">` : "-"}</td>
+              <td>${row.photoPath ? `<img class="photo" src="${escapeHtml(resolveAssetUrl(row.photoPath))}" alt="photo">` : "-"}</td>
               <td>
                 <button class="btn btn-warning" onclick="quickEditApplicant(${row.id})">Edit</button>
                 <button class="btn btn-danger" onclick="deleteApplicant(${row.id})">Delete</button>
@@ -235,7 +235,7 @@ document.getElementById("clearSearchBtn").addEventListener("click", async () => 
 
 document.getElementById("logoutBtn").addEventListener("click", () => {
   clearSession();
-  window.location.href = "/login.html";
+  window.location.href = "./login.html";
 });
 
 (async () => {
@@ -244,7 +244,7 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
   } catch (error) {
     if (error.status === 401 || error.status === 403) {
       clearSession();
-      window.location.href = "/login.html";
+      window.location.href = "./login.html";
       return;
     }
     showMessage("applicantMessage", error.message || "Failed to load data", "error");

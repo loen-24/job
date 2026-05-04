@@ -1,4 +1,5 @@
 ﻿const SESSION_KEY = "airindiana_session";
+const API_BASE_URL = "https://YOUR-RENDER-BACKEND.onrender.com";
 
 function setSession(session) {
   localStorage.setItem(SESSION_KEY, JSON.stringify(session));
@@ -38,6 +39,16 @@ function statusClass(status) {
   return `status-${String(status || "").toLowerCase().replace(/\s+/g, "-")}`;
 }
 
+function buildApiUrl(path) {
+  return `${API_BASE_URL.replace(/\/$/, "")}${path}`;
+}
+
+function resolveAssetUrl(path) {
+  if (!path) return "";
+  if (/^https?:\/\//i.test(path)) return path;
+  return `${API_BASE_URL.replace(/\/$/, "")}${path}`;
+}
+
 async function apiRequest(url, options = {}) {
   const token = getToken();
   const headers = options.headers ? { ...options.headers } : {};
@@ -51,7 +62,7 @@ async function apiRequest(url, options = {}) {
     headers.Authorization = `Bearer ${token}`;
   }
 
-  const response = await fetch(url, {
+  const response = await fetch(buildApiUrl(url), {
     ...options,
     headers,
   });

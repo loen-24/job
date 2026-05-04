@@ -18,12 +18,12 @@ function fillResult(data) {
   document.getElementById("rAddress").textContent = data.address;
   document.getElementById("rRef").textContent = data.referenceNo;
   document.getElementById("rStatus").innerHTML = `<span class="badge ${statusClass(data.status)}">${data.status}</span>`;
-  document.getElementById("rPhoto").src = data.photoPath || "";
+  document.getElementById("rPhoto").src = data.photoPath ? resolveAssetUrl(data.photoPath) : "";
   document.getElementById("rPhoto").style.display = data.photoPath ? "block" : "none";
 }
 
 async function trackByReference(referenceNo) {
-  const response = await fetch("/api/public/track", {
+  const response = await fetch(buildApiUrl("/api/public/track"), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ referenceNo }),

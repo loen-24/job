@@ -15,13 +15,44 @@ Set these in your deployment platform:
 
 Note: `ADMIN_PASSWORD` is used for initial admin seeding. If the database already exists, update admin password through the app flow or rotate it directly in DB.
 
-## 2) Render
+## 2) Split Deployment (GitHub Pages + Render)
+
+### Frontend on GitHub Pages
+
+1. Static frontend is in `public/`.
+2. In `public/js/api.js`, set:
+   - `const API_BASE_URL = "https://YOUR-RENDER-BACKEND.onrender.com";`
+3. Enable GitHub Pages with **GitHub Actions** as source.
+4. The included workflow [`.github/workflows/pages.yml`](./.github/workflows/pages.yml) publishes `public/` as Pages root.
+5. Frontend URLs:
+   - `https://loen-24.github.io/job/`
+   - `https://loen-24.github.io/job/login.html`
+   - `https://loen-24.github.io/job/admin.html`
+   - `https://loen-24.github.io/job/employee.html`
+   - `https://loen-24.github.io/job/track.html`
+
+### Backend on Render
 
 1. Create a new Web Service from this repository.
 2. Build command: `npm install`
 3. Start command: `npm start`
-4. Add all environment variables from above.
-5. Add a persistent disk and mount it to the project path so `data/` and `uploads/` survive restarts.
+4. Add environment variables:
+   - `ADMIN_ID`
+   - `ADMIN_PASSWORD`
+   - `JWT_SECRET`
+   - `JWT_ISSUER`
+   - `JWT_AUDIENCE`
+   - `NODE_ENV=production`
+5. Add a persistent disk and mount it so these folders persist:
+   - `data/`
+   - `uploads/`
+   - `backups/`
+6. Backend API and uploads stay on Render:
+   - `https://YOUR-RENDER-BACKEND.onrender.com/api/...`
+   - `https://YOUR-RENDER-BACKEND.onrender.com/uploads/...`
+7. CORS allowlist is configured for:
+   - `https://loen-24.github.io`
+   - `https://loen-24.github.io/job`
 
 ## 3) Railway
 
