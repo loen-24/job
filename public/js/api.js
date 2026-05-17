@@ -71,7 +71,19 @@ async function apiRequest(url, options = {}) {
   const data = isJson ? await response.json() : null;
 
   if (!response.ok) {
-    const error = new Error(data?.message || "Request failed");
+    const message = data?.message || "Request failed";
+    if (
+      response.status === 401 &&
+      ["Invalid user", "Invalid or expired token", "Session no longer valid"].includes(message)
+    ) {
+      clearSession();
+      const isLoginPage = window.location.pathname.endsWith("/login.html");
+      if (!isLoginPage) {
+        window.location.href = "./login.html";
+      }
+    }
+
+    const error = new Error(message);
     error.status = response.status;
     throw error;
   }
