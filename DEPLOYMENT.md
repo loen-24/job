@@ -43,14 +43,16 @@ Note: `ADMIN_PASSWORD` is used for initial admin seeding. If the database alread
    - `JWT_ISSUER`
    - `JWT_AUDIENCE`
    - `NODE_ENV=production`
-5. Add a persistent disk and mount it so these folders persist:
-   - `data/`
-   - `uploads/`
-   - `backups/`
-6. Backend API and uploads stay on Render:
+   - `PERSISTENT_STORAGE_PATH=/var/data` (recommended)
+5. Add a persistent disk and mount it at `/var/data` (or your chosen mount path).
+6. App will use persistent storage for:
+   - DB file: `/var/data/airindiana.db`
+   - uploads: `/var/data/uploads/`
+   - backups: `/var/data/backups/`
+7. Backend API and uploads stay on Render:
    - `https://YOUR-RENDER-BACKEND.onrender.com/api/...`
    - `https://YOUR-RENDER-BACKEND.onrender.com/uploads/...`
-7. CORS allowlist is configured for:
+8. CORS allowlist is configured for:
    - `https://loen-24.github.io`
    - `https://loen-24.github.io/job`
 

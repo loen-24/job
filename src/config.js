@@ -1,4 +1,5 @@
-﻿const path = require("path");
+﻿const fs = require("fs");
+const path = require("path");
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -9,6 +10,12 @@ if (process.env.NODE_ENV === "production" && jwtSecret === "change-this-secret-i
   throw new Error("JWT_SECRET must be set in production");
 }
 
+const projectRoot = path.join(__dirname, "..");
+const hasRenderDefaultDisk = fs.existsSync("/var/data");
+const configuredStorageRoot = process.env.PERSISTENT_STORAGE_PATH || process.env.RENDER_DISK_MOUNT_PATH || null;
+const usingExternalDisk = Boolean(configuredStorageRoot || hasRenderDefaultDisk);
+const storageRoot = configuredStorageRoot || (hasRenderDefaultDisk ? "/var/data" : projectRoot);
+
 const config = {
   port: Number(process.env.PORT || 4000),
   jwtSecret,
@@ -18,8 +25,12 @@ const config = {
   adminId: process.env.ADMIN_ID || "admin",
   adminName: process.env.ADMIN_NAME || "Super Admin",
   adminPassword: process.env.ADMIN_PASSWORD || "Admin@12345",
-  dbPath: path.join(__dirname, "..", "data", "airindiana.db"),
-  uploadPath: path.join(__dirname, "..", "uploads"),
+  storageRoot,
+  dbPath:
+    process.env.DB_PATH ||
+    (usingExternalDisk ? path.join(storageRoot, "airindiana.db") : path.join(projectRoot, "data", "airindiana.db")),
+  uploadPath: process.env.UPLOAD_PATH || path.join(storageRoot, "uploads"),
+  backupPath: process.env.BACKUP_PATH || path.join(storageRoot, "backups"),
 };
 
 module.exports = config;

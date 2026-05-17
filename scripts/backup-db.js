@@ -2,7 +2,7 @@
 const path = require("path");
 const config = require("../src/config");
 
-const backupsDir = path.join(__dirname, "..", "backups");
+const backupsDir = config.backupPath || path.join(__dirname, "..", "backups");
 fs.mkdirSync(backupsDir, { recursive: true });
 
 const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
