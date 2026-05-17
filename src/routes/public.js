@@ -5,21 +5,24 @@ const { get } = require("../db");
 const router = express.Router();
 
 const tokenSchema = Joi.object({
-  referenceNo: Joi.string().trim().pattern(/^AIR-[0-9]{4}-[0-9]{6}$/).required(),
+  referenceNo: Joi.string()
+    .trim()
+    .pattern(/^AIR-[0-9]{4}[A-Z]{2}[0-9]{3}[A-Z]{2}[0-9]{3}$/i)
+    .required(),
 });
 
 router.post("/track", async (req, res) => {
-  const normalizedRef = String(req.body.referenceNo || "").trim().toUpperCase();
+  const normalizedRef = String(req.body.referenceNo || "").trim();
   const { error, value } = tokenSchema.validate({ referenceNo: normalizedRef });
   if (error) {
-    res.status(400).json({ message: "Enter a valid reference number (e.g., AIR-2026-000001)" });
+    res.status(400).json({ message: "Enter a valid reference number (e.g., Air-2619AP548GS264)" });
     return;
   }
 
   const applicant = await get(
     `SELECT reference_no, full_name, email, mobile, gender, dob, job_position, address, photo_path, status
      FROM applicants
-     WHERE reference_no = ?`,
+     WHERE reference_no = ? COLLATE NOCASE`,
     [value.referenceNo]
   );
 

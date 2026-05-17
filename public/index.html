@@ -42,7 +42,7 @@
         <h3>Quick Applicant Lookup</h3>
         <form id="quickTrackForm">
           <label for="referenceNo">Reference Number</label>
-          <input id="referenceNo" name="referenceNo" placeholder="AIR-2026-000001" required />
+          <input id="referenceNo" name="referenceNo" placeholder="Air-2619AP548GS264" required />
           <button class="btn btn-primary" style="margin-top: 10px;" type="submit">View Details</button>
         </form>
         <p class="footer-note">No login required for applicant tracking.</p>
@@ -55,7 +55,7 @@
       event.preventDefault();
       const referenceNo = document.getElementById("referenceNo").value.trim();
       if (!referenceNo) return;
-      window.location.href = `./track.html?ref=${encodeURIComponent(referenceNo.toUpperCase())}`;
+      window.location.href = `./track.html?ref=${encodeURIComponent(referenceNo)}`;
     });
   </script>
 </body>

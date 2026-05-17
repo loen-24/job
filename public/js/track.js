@@ -42,7 +42,7 @@ document.getElementById("trackForm").addEventListener("submit", async (event) =>
   showTrackMessage("");
   document.getElementById("resultCard").style.display = "none";
 
-  const referenceNo = document.getElementById("referenceNo").value.trim().toUpperCase();
+  const referenceNo = document.getElementById("referenceNo").value.trim();
   if (!referenceNo) {
     showTrackMessage("Please enter your reference number");
     return;
@@ -59,6 +59,6 @@ document.getElementById("trackForm").addEventListener("submit", async (event) =>
 const params = new URLSearchParams(window.location.search);
 const prefillRef = params.get("ref");
 if (prefillRef) {
-  document.getElementById("referenceNo").value = prefillRef.toUpperCase();
+  document.getElementById("referenceNo").value = prefillRef;
   document.getElementById("trackForm").dispatchEvent(new Event("submit"));
 }

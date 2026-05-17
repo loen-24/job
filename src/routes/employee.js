@@ -18,9 +18,13 @@ const createApplicantSchema = Joi.object({
   address: Joi.string().trim().min(5).max(300).required(),
 });
 
-function buildReferenceNo(id, createdAt) {
-  const year = new Date(createdAt).getFullYear();
-  return `AIR-${year}-${String(id).padStart(6, "0")}`;
+function buildReferenceNo() {
+  const randomDigits = (length) =>
+    Array.from({ length }, () => Math.floor(Math.random() * 10)).join("");
+  const randomLetters = (length) =>
+    Array.from({ length }, () => String.fromCharCode(65 + Math.floor(Math.random() * 26))).join("");
+
+  return `Air-${randomDigits(4)}${randomLetters(2)}${randomDigits(3)}${randomLetters(2)}${randomDigits(3)}`;
 }
 
 function safeDeleteUploadedFile(photoPath) {
@@ -93,8 +97,23 @@ router.post("/applicants", upload.single("photo"), async (req, res) => {
     ]
   );
 
-  const referenceNo = buildReferenceNo(inserted.lastID, now);
-  await run("UPDATE applicants SET reference_no = ? WHERE id = ?", [referenceNo, inserted.lastID]);
+  let referenceNo = null;
+  for (let attempt = 0; attempt < 10; attempt += 1) {
+    const candidate = buildReferenceNo();
+    try {
+      await run("UPDATE applicants SET reference_no = ? WHERE id = ?", [candidate, inserted.lastID]);
+      referenceNo = candidate;
+      break;
+    } catch (error) {
+      if (!String(error?.message || "").includes("UNIQUE constraint failed")) {
+        throw error;
+      }
+    }
+  }
+
+  if (!referenceNo) {
+    throw new Error("Unable to generate a unique reference number");
+  }
 
   const applicant = await get(
     `SELECT id, reference_no, full_name, email, mobile, gender, dob, job_position, address,
