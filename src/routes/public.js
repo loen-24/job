@@ -7,7 +7,9 @@ const router = express.Router();
 const tokenSchema = Joi.object({
   referenceNo: Joi.string()
     .trim()
-    .pattern(/^AIR-[0-9]{4}[A-Z]{2}[0-9]{3}[A-Z]{2}[0-9]{3}$/i)
+    .pattern(
+      /^(AIR-[0-9]{4}-[0-9]{6}|AIR-[0-9]{4}[A-Z]{2}[0-9]{3}[A-Z]{2}[0-9]{3})$/i
+    )
     .required(),
 });
 
@@ -15,7 +17,9 @@ router.post("/track", async (req, res) => {
   const normalizedRef = String(req.body.referenceNo || "").trim();
   const { error, value } = tokenSchema.validate({ referenceNo: normalizedRef });
   if (error) {
-    res.status(400).json({ message: "Enter a valid reference number (e.g., Air-2619AP548GS264)" });
+    res.status(400).json({
+      message: "Enter a valid reference number (e.g., AIR-2026-000001 or Air-2619AP548GS264)",
+    });
     return;
   }
 
