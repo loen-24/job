@@ -81,7 +81,10 @@ async function initializeDb() {
     )
   `);
 
-  const existingAdmin = await get("SELECT id, role, is_active FROM users WHERE employee_id = ?", [config.adminId]);
+  const existingAdmin = await get(
+    "SELECT id, name, password_hash, role, is_active FROM users WHERE employee_id = ?",
+    [config.adminId]
+  );
   if (!existingAdmin) {
     const hashedPassword = await bcrypt.hash(config.adminPassword, 10);
     await run(
@@ -92,8 +95,18 @@ async function initializeDb() {
     return;
   }
 
-  if (existingAdmin.role !== "admin" || !existingAdmin.is_active) {
-    await run("UPDATE users SET role = 'admin', is_active = 1 WHERE id = ?", [existingAdmin.id]);
+  const passwordMatches = await bcrypt.compare(config.adminPassword, existingAdmin.password_hash);
+  if (
+    existingAdmin.role !== "admin" ||
+    !existingAdmin.is_active ||
+    existingAdmin.name !== config.adminName ||
+    !passwordMatches
+  ) {
+    const hashedPassword = await bcrypt.hash(config.adminPassword, 10);
+    await run(
+      "UPDATE users SET name = ?, password_hash = ?, role = 'admin', is_active = 1 WHERE id = ?",
+      [config.adminName, hashedPassword, existingAdmin.id]
+    );
   }
 }
 
