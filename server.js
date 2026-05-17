@@ -24,6 +24,16 @@ const allowedOrigins = new Set([
 app.use(
   helmet({
     crossOriginResourcePolicy: false,
+    contentSecurityPolicy: {
+      directives: {
+        connectSrc: [
+          "'self'",
+          "https://job-311m.onrender.com",
+          "http://localhost:4000",
+          "http://127.0.0.1:4000",
+        ],
+      },
+    },
   })
 );
 app.use(
